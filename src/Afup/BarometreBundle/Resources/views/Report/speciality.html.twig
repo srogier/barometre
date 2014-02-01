@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+{{ render(controller('AfupBarometreBundle:Filters:index')) }}
+
+<div class="report-title">Distribution des spécialités.</div>
+
+<table class="bar-table">
+    <thead>
+      <tr>
+        <td>Spécialité</td>
+        <td>Nombre de réponses</td>
+      </tr>
+    </thead>
+    <tbody>
+    {% for row in results %}
+      <tr>
+        <td>{{ row.speciality }}</td>
+        <td>{{ row.count }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

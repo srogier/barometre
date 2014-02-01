@@ -74,4 +74,32 @@ class ResponseReports
 
         return $query->execute();
     }
+
+    /**
+     * @param QueryBuilder $query
+     *
+     * @return array
+     */
+    public function getSpecialityReport(QueryBuilder $query)
+    {
+        $query->select('count(distinct response.id) as count');
+
+        $query->join(
+            'response',
+            'response_speciality',
+            'response_speciality',
+            'response.id = response_speciality.response_id'
+        );
+        $query->join(
+            'response_speciality',
+            'speciality',
+            'speciality',
+            'response_speciality.speciality_id = speciality.id'
+        );
+
+        $query->addSelect('speciality.name as speciality');
+        $query->addGroupBy('speciality.name');
+
+        return $query->execute();
+    }
 }
